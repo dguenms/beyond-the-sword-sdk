@@ -1,0 +1,11 @@
+Release/
+*/Release-fast/
+Assert/
+Assert-fast/
+Debug/
+Profile/
+
+obj/
+**/temp_files/
+
+*.dll
