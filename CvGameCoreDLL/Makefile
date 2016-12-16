@@ -29,6 +29,8 @@
 #
 # Note: $(PROGRAMFILES) converts to "C:\Program Files", "C:\Program Files (x86)" or whatever fits your system.
 # run "nmake.exe /P" in cmd.exe to see what it is on your system
+# The MS Visual C++ Toolkit and MS SDKs need to be downloaded separately
+# Replace with the correct paths for your system
 TOOLKIT=$(PROGRAMFILES)\Microsoft Visual C++ Toolkit 2003
 PSDK=$(PROGRAMFILES)\Microsoft SDKs\Windows\v7.0A
 ## Uncomment to have newly compiled dlls copied to your mod's Assets directory
