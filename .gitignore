@@ -1,11 +1,12 @@
 Release/
-*/Release-fast/
+Release-fast/
 Assert/
 Assert-fast/
 Debug/
 Profile/
 
 obj/
-**/temp_files/
+temp_files/
 
 *.dll
+*.opensdf
