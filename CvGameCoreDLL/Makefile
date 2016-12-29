@@ -32,7 +32,7 @@
 # The MS Visual C++ Toolkit and MS SDKs need to be downloaded separately
 # Replace with the correct paths for your system
 TOOLKIT=$(PROGRAMFILES)\Civ4SDK\Microsoft Visual C++ Toolkit 2003
-PSDK=$(PROGRAMFILES)\Civ4SDK\Microsoft SDKs\Windows\v7.0A
+PSDK=$(PROGRAMFILES)\Civ4SDK\WindowsSDK
 ## Uncomment to have newly compiled dlls copied to your mod's Assets directory
 YOURMOD=..
 
