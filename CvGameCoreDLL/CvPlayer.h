@@ -1039,6 +1039,9 @@ public:
 	virtual void AI_setExtraGoldTarget(int iNewValue) = 0;
 	virtual int AI_maxGoldPerTurnTrade(PlayerTypes ePlayer) const = 0;
 	virtual int AI_maxGoldTrade(PlayerTypes ePlayer) const = 0;
+	
+	// leaving this in causes a failed to compress game data crash
+	virtual CivicTypes AI_bestCivic(CivicOptionTypes eCivicOptionType) const = 0;
 
 protected:
 
