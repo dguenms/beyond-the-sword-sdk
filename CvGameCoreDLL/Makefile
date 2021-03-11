@@ -34,12 +34,12 @@
 TOOLKIT=$(PROGRAMFILES)\Civ4SDK\Microsoft Visual C++ Toolkit 2003
 PSDK=$(PROGRAMFILES)\Civ4SDK\WindowsSDK
 ## Uncomment to have newly compiled dlls copied to your mod's Assets directory
-YOURMOD=..
+YOURMOD=D:\SteamD\steamapps\common\Civ4\Beyond the Sword\Mods\Custom Combat
 
 ## Civ install path
 ## Path to the directory where boost and python is stored
 ## Overwritten by enviroment variable CIV4_LIB_INSTALL_PATH
-CIV4_PATH=$(PROGRAMFILES)\2K Games\Firaxis Games\Sid Meier's Civilization IV Colonization\CvGameCoreDLL
+CIV4_PATH=D:\SteamD\steamapps\common\Civ4
 
 #### Tools ####
 CC="$(TOOLKIT)\bin\cl.exe"

@@ -10,3 +10,13 @@ temp_files/
 
 *.dll
 *.opensdf
+/CvGameCoreDLL/.vs/CvGameCoreDLL/v16/Browse.VC.opendb
+/CvGameCoreDLL/.vs/CvGameCoreDLL/v16/Browse.VC.db-wal
+/CvGameCoreDLL/.vs/CvGameCoreDLL/v16/Browse.VC.db-shm
+/CvGameCoreDLL/.vs/CvGameCoreDLL/v16/Browse.VC.db
+/CvGameCoreDLL/.vs/CvGameCoreDLL/v16/.suo
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
+/.vs/civ4bull-sdk/v16/Browse.VC.db
+/.vs/civ4bull-sdk/v16/.suo
