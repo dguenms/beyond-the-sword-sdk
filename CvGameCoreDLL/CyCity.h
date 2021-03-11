@@ -191,6 +191,11 @@ public:
 	int getTotalGreatPeopleRateModifier();
 	void changeBaseGreatPeopleRate(int iChange);
 	int getGreatPeopleRateModifier();
+// BUG - Building Additional Great People - start
+	int getAdditionalGreatPeopleRateByBuilding(int /*BuildingTypes*/ iBuilding);
+	int getAdditionalBaseGreatPeopleRateByBuilding(int /*BuildingTypes*/ iBuilding);
+	int getAdditionalGreatPeopleRateModifierByBuilding(int /*BuildingTypes*/ iBuilding);
+// BUG - Building Additional Great People - end
 	int getGreatPeopleProgress();
 	void changeGreatPeopleProgress(int iChange);
 	int getNumWorldWonders();
@@ -198,6 +203,10 @@ public:
 	int getNumNationalWonders();
 	int getNumBuildings();
 	bool isGovernmentCenter();
+// BUG - Building Saved Maintenance - start
+	int getSavedMaintenanceByBuilding(int /*BuildingTypes*/ iBuilding) const;
+	int getSavedMaintenanceTimes100ByBuilding(int /*BuildingTypes*/ iBuilding) const;
+// BUG - Building Saved Maintenance - end
 	int getMaintenance() const;
 	int getMaintenanceTimes100() const;
 	int calculateDistanceMaintenance() const;														 
@@ -224,7 +233,19 @@ public:
 	int getBuildingBadHealth();
 	int getFeatureGoodHealth();
 	int getFeatureBadHealth();
+// BUG - Feature Health - start
+	int getAdditionalHealthByFeature(int /*FeatureTypes*/ eFeature, int iChange);
+	int getAdditionalGoodHealthByFeature(int /*FeatureTypes*/ eFeature, int iChange);
+	int getAdditionalBadHealthByFeature(int /*FeatureTypes*/ eFeature, int iChange);
+// BUG - Feature Health - end
 	int getBuildingHealth(int iBuilding);
+// BUG - Building Additional Health - start
+	int getAdditionalHealthByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalGoodHealthByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalBadHealthByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalSpoiledFoodByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalStarvationByBuilding(int /*BuildingTypes*/ eBuilding);
+// BUG - Building Additional Health - end
 	int getPowerGoodHealth();
 	int getPowerBadHealth();
 	int getBonusGoodHealth();
@@ -234,6 +255,12 @@ public:
 	int getBuildingGoodHappiness();
 	int getBuildingBadHappiness();
 	int getBuildingHappiness(int iBuilding);
+// BUG - Building Additional Happiness - start
+	int getAdditionalHappinessByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalGoodHappinessByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalBadHappinessByBuilding(int /*BuildingTypes*/ eBuilding);
+	int getAdditionalAngryPopulationByBuilding(int /*BuildingTypes*/ eBuilding);
+// BUG - Building Additional Happiness - end
 	int getExtraBuildingGoodHappiness();
 	int getExtraBuildingBadHappiness();
 	int getFeatureGoodHappiness();
@@ -277,7 +304,13 @@ public:
 	int getTradeRouteModifier();
 	int getForeignTradeRouteModifier();
 	int getBuildingDefense();
+// BUG - Building Additional Defense - start
+	int getAdditionalDefenseByBuilding(int /*BuildingTypes*/ eBuilding);
+// BUG - Building Additional Defense - end
 	int getBuildingBombardDefense();
+// BUG - Building Additional Bombard Defense - start
+	int getAdditionalBombardDefenseByBuilding(int /*BuildingTypes*/ eBuilding);
+// BUG - Building Additional Bombard Defense - end
 	int getFreeExperience();
 	int getCurrAirlift();
 	int getMaxAirlift();
@@ -336,9 +369,21 @@ public:
 	int getBaseYieldRateModifier(int /*YieldTypes*/ eIndex, int iExtra);
 	int getYieldRate(int /*YieldTypes*/ eIndex);
 	int getYieldRateModifier(int /*YieldTypes*/ eIndex);
+	
+// BUG - Building Additional Yield - start
+	int getAdditionalYieldByBuilding(int /*YieldTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+	int getAdditionalBaseYieldRateByBuilding(int /*YieldTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+	int getAdditionalYieldRateModifierByBuilding(int /*YieldTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+// BUG - Building Additional Yield - end
+
 	int getTradeYield(int /*YieldTypes*/ eIndex);
 	int totalTradeModifier();
 
+// BUG - Fractional Trade Routes - start
+#ifdef _MOD_FRACTRADE
+	int calculateTradeProfitTimes100(CyCity* pCity);
+#endif
+// BUG - Fractional Trade Routes - end
 	int calculateTradeProfit(CyCity* pCity);
 	int calculateTradeYield(int /*YieldTypes*/ eIndex, int iTradeProfit);
 
@@ -354,6 +399,12 @@ public:
 	int getProductionToCommerceModifier(int /*CommerceTypes*/ eIndex);
 	int getBuildingCommerce(int /*CommerceTypes*/ eIndex);
 	int getBuildingCommerceByBuilding(int /*CommerceTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);	
+// BUG - Building Additional Commerce - start
+	int getAdditionalCommerceByBuilding(int /*CommerceTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+	int getAdditionalCommerceTimes100ByBuilding(int /*CommerceTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+	int getAdditionalBaseCommerceRateByBuilding(int /*CommerceTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+	int getAdditionalCommerceRateModifierByBuilding(int /*CommerceTypes*/ eIndex, int /*BuildingTypes*/ iBuilding);
+// BUG - Building Additional Commerce - end
 	int getSpecialistCommerce(int /*CommerceTypes*/ eIndex);
 	void changeSpecialistCommerce(int /*CommerceTypes*/ eIndex, int iChange);
 	int getReligionCommerce(int /*CommerceTypes*/ eIndex);
@@ -401,11 +452,29 @@ public:
 	int getBuildingProductionTime(int /*BuildingTypes*/ eIndex);
 	void setBuildingProductionTime(int /*BuildingTypes*/ eIndex, int iNewValue);
 	void changeBuildingProductionTime(int /*BuildingTypes*/ eIndex, int iChange);
+// BUG - Production Decay - start
+	bool isBuildingProductionDecay(int /*BuildingTypes*/ eIndex);
+	int getBuildingProductionDecay(int /*BuildingTypes*/ eIndex);
+	int getBuildingProductionDecayTurns(int /*BuildingTypes*/ eIndex);
+// BUG - Production Decay - end
 	int getBuildingOriginalOwner(int /*BuildingTypes*/ iIndex);
 	int getBuildingOriginalTime(int /*BuildingTypes*/ iIndex);
 	int getUnitProduction(int iIndex);
 	void setUnitProduction(int iIndex, int iNewValue);
 	void changeUnitProduction(int /*UnitTypes*/ iIndex, int iChange);
+// BUG - Production Decay - start
+	int getUnitProductionTime(int /*UnitTypes*/ eIndex);
+	void setUnitProductionTime(int /*UnitTypes*/ eIndex, int iNewValue);
+	void changeUnitProductionTime(int /*UnitTypes*/ eIndex, int iChange);
+	bool isUnitProductionDecay(int /*UnitTypes*/ eIndex);
+	int getUnitProductionDecay(int /*UnitTypes*/ eIndex);
+	int getUnitProductionDecayTurns(int /*UnitTypes*/ eIndex);
+// BUG - Production Decay - end
+// BUG - Project Production - start
+	int getProjectProduction(int /*ProjectTypes*/ iIndex);
+	void setProjectProduction(int /*ProjectTypes*/ iIndex, int iNewValue);
+	void changeProjectProduction(int /*ProjectTypes*/ iIndex, int iChange);
+// BUG - Project Production - end
 	int getGreatPeopleUnitRate(int /*UnitTypes*/ iIndex);
 	int getGreatPeopleUnitProgress(int /*UnitTypes*/ iIndex);
 	void setGreatPeopleUnitProgress(int /*UnitTypes*/ iIndex, int iNewValue);

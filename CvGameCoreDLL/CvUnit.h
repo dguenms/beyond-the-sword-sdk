@@ -296,7 +296,10 @@ public:
 	bool canBuildRoute() const;																						// Exposed to Python
 	DllExport BuildTypes getBuildType() const;														// Exposed to Python
 	int workRate(bool bMax) const;															// Exposed to Python
-
+	
+// BUG - Female Great People - start
+	bool isFemale() const;																	// Exposed to Python
+// BUG - Female Great People - end
 	bool isAnimal() const;																								// Exposed to Python
 	bool isNoBadGoodies() const;																					// Exposed to Python
 	bool isOnlyDefensive() const;																					// Exposed to Python
@@ -668,6 +671,9 @@ public:
 	void changeExtraDomainModifier(DomainTypes eIndex, int iChange);
 
 	DllExport const CvWString getName(uint uiForm = 0) const;																// Exposed to Python
+// BUG - Unit Name - start
+	bool isDescInName() const;
+// BUG - Unit Name - end
 	DllExport const wchar* getNameKey() const;																							// Exposed to Python
 	const CvWString& getNameNoDesc() const;																				// Exposed to Python
 	void setName(const CvWString szNewValue);																			// Exposed to Python

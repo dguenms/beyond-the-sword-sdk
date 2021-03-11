@@ -14,6 +14,11 @@ class CvArea;
 class CvGenericBuilding;
 class CvArtInfoBuilding;
 
+// BUG - start
+void addGoodOrBad(int iValue, int& iGood, int& iBad);
+void subtractGoodOrBad(int iValue, int& iGood, int& iBad);
+// BUG - end
+
 class CvCity : public CvDLLEntity
 {
 
@@ -126,6 +131,9 @@ public:
 
 	bool canHurry(HurryTypes eHurry, bool bTestVisible = false) const;		// Exposed to Python
 	void hurry(HurryTypes eHurry);																						// Exposed to Python
+// BUG - Hurry Assist - start
+	bool hurryOverflow(HurryTypes eHurry, int* iProduction, int* iGold, bool bCountThisTurn = false) const;
+// BUG - Hurry Assist - end
 
 	UnitTypes getConscriptUnit() const;																// Exposed to Python
 	CvUnit* initConscriptedUnit();
@@ -215,6 +223,15 @@ public:
 	int getNumBuilding(BuildingTypes eIndex) const;									// Exposed to Python					
 	int getNumActiveBuilding(BuildingTypes eIndex) const;						// Exposed to Python
 	bool hasActiveWorldWonder() const;																			// Exposed to Python
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       03/04/10                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+	int getNumActiveWorldWonders() const;
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 
 	int getReligionCount() const;																						// Exposed to Python  
 	int getCorporationCount() const;																						// Exposed to Python  
@@ -283,6 +300,17 @@ public:
 	int getGreatPeopleRateModifier() const;																// Exposed to Python
 	void changeGreatPeopleRateModifier(int iChange);
 
+// BUG - Building Additional Great People - start
+	int getAdditionalGreatPeopleRateByBuilding(BuildingTypes eBuilding) const;								// Exposed to Python
+	int getAdditionalBaseGreatPeopleRateByBuilding(BuildingTypes eBuilding) const;							// Exposed to Python
+	int getAdditionalGreatPeopleRateModifierByBuilding(BuildingTypes eBuilding) const;						// Exposed to Python
+// BUG - Building Additional Great People - end
+
+// BUG - Specialist Additional Great People - start
+	int getAdditionalGreatPeopleRateBySpecialist(SpecialistTypes eSpecialist, int iChange) const;			// Exposed to Python
+	int getAdditionalBaseGreatPeopleRateBySpecialist(SpecialistTypes eSpecialist, int iChange) const;		// Exposed to Python
+// BUG - Specialist Additional Great People - end
+
 	int getGreatPeopleProgress() const;													// Exposed to Python
 	void changeGreatPeopleProgress(int iChange);										// Exposed to Python
 
@@ -301,6 +329,11 @@ public:
 	int getGovernmentCenterCount() const;																	
 	bool isGovernmentCenter() const;														// Exposed to Python
 	void changeGovernmentCenterCount(int iChange);													
+
+// BUG - Building Saved Maintenance - start
+	int getSavedMaintenanceByBuilding(BuildingTypes eBuilding) const;										// Exposed to Python
+	int getSavedMaintenanceTimes100ByBuilding(BuildingTypes eBuilding) const;								// Exposed to Python
+// BUG - Building Saved Maintenance - end
 
 	int getMaintenance() const;																	// Exposed to Python
 	int getMaintenanceTimes100() const;																	// Exposed to Python
@@ -340,6 +373,19 @@ public:
 	int getFeatureGoodHealth() const;																			// Exposed to Python
 	int getFeatureBadHealth() const;														// Exposed to Python
 	void updateFeatureHealth();
+// BUG - Feature Health - start
+	void calculateFeatureHealthPercent(int& iGood, int& iBad) const;
+	void calculateFeatureHealthPercentChange(int& iGood, int& iBad, CvPlot* pIgnorePlot = NULL) const;
+	int getAdditionalHealthByFeature(FeatureTypes eFeature, int iChange) const;									// Exposed to Python
+	int getAdditionalHealthByFeature(FeatureTypes eFeature, int iChange, int& iGood, int& iBad) const;
+	int getAdditionalHealth(int iGoodPercent, int iBadPercent, int& iGood, int& iBad) const;
+// BUG - Feature Health - end
+
+// BUG - Actual Effects - start
+	int getAdditionalAngryPopuplation(int iGood, int iBad) const;
+	int getAdditionalSpoiledFood(int iGood, int iBad) const;
+	int getAdditionalStarvation(int iSpoiledFood) const;
+// BUG - Actual Effects - end
 
 	int getBuildingGoodHealth() const;																		// Exposed to Python
 	int getBuildingBadHealth() const;																			// Exposed to Python
@@ -372,9 +418,19 @@ public:
 	int getExtraBuildingBadHappiness() const;															// Exposed to Python
 	void updateExtraBuildingHappiness();
 
+// BUG - Building Additional Happiness - start
+	int getAdditionalHappinessByBuilding(BuildingTypes eBuilding) const;									// Exposed to Python
+	int getAdditionalHappinessByBuilding(BuildingTypes eBuilding, int& iGood, int& iBad) const;
+// BUG - Building Additional Happiness - end
+
 	int getExtraBuildingGoodHealth() const;														// Exposed to Python
 	int getExtraBuildingBadHealth() const;															// Exposed to Python
 	void updateExtraBuildingHealth();
+
+// BUG - Building Additional Health - start
+	int getAdditionalHealthByBuilding(BuildingTypes eBuilding) const;										// Exposed to Python
+	int getAdditionalHealthByBuilding(BuildingTypes eBuilding, int& iGood, int& iBad) const;
+// BUG - Building Additional Health - end
 
 	int getFeatureGoodHappiness() const;																	// Exposed to Python
 	int getFeatureBadHappiness() const;																		// Exposed to Python
@@ -457,9 +513,15 @@ public:
 
 	int getBuildingDefense() const;																				// Exposed to Python
 	void changeBuildingDefense(int iChange);
+// BUG - Building Additional Defense - start
+	int getAdditionalDefenseByBuilding(BuildingTypes eBuilding) const;											// Exposed to Python
+// BUG - Building Additional Defense - start
 
 	int getBuildingBombardDefense() const;																				// Exposed to Python
 	void changeBuildingBombardDefense(int iChange);
+// BUG - Building Additional Bombard Defense - start
+	int getAdditionalBombardDefenseByBuilding(BuildingTypes eBuilding) const;									// Exposed to Python
+// BUG - Building Additional Bombard Defense - start
 
 	int getFreeExperience() const;																				// Exposed to Python
 	void changeFreeExperience(int iChange);															
@@ -577,6 +639,17 @@ public:
 	int getRiverPlotYield(YieldTypes eIndex) const;																// Exposed to Python
 	void changeRiverPlotYield(YieldTypes eIndex, int iChange);
 
+// BUG - Building Additional Yield - start
+	int getAdditionalYieldByBuilding(YieldTypes eIndex, BuildingTypes eBuilding) const;						// Exposed to Python
+	int getAdditionalBaseYieldRateByBuilding(YieldTypes eIndex, BuildingTypes eBuilding) const;				// Exposed to Python
+	int getAdditionalYieldRateModifierByBuilding(YieldTypes eIndex, BuildingTypes eBuilding) const;			// Exposed to Python
+// BUG - Building Additional Yield - end
+
+// BUG - Specialist Additional Yield - start
+	int getAdditionalYieldBySpecialist(YieldTypes eIndex, SpecialistTypes eSpecialist, int iChange) const;				// Exposed to Python
+	int getAdditionalBaseYieldRateBySpecialist(YieldTypes eIndex, SpecialistTypes eSpecialist, int iChange) const;		// Exposed to Python
+// BUG - Specialist Additional Yield - end
+
 	int getBaseYieldRate(YieldTypes eIndex) const;															// Exposed to Python
 	int getBaseYieldRateModifier(YieldTypes eIndex, int iExtra = 0) const;			// Exposed to Python
 	int getYieldRate(YieldTypes eIndex) const;												// Exposed to Python
@@ -597,8 +670,17 @@ public:
 	int getPopulationTradeModifier() const;
 	int getPeaceTradeModifier(TeamTypes eTeam) const;
 	int getBaseTradeProfit(CvCity* pCity) const;
+// BUG - Fractional Trade Routes - start
+#ifdef _MOD_FRACTRADE
+	int calculateTradeProfitTimes100(CvCity* pCity) const;															// Exposed to Python
+#endif
+// BUG - Fractional Trade Routes - end
 	int calculateTradeProfit(CvCity* pCity) const;															// Exposed to Python
 	int calculateTradeYield(YieldTypes eIndex, int iTradeProfit) const;					// Exposed to Python
+// BUG - Trade Totals - start
+	void calculateTradeTotals(YieldTypes eIndex, int& iDomesticYield, int& iDomesticRoutes, int& iForeignYield, int& iForeignRoutes, PlayerTypes eWithPlayer = NO_PLAYER, bool bRound = false, bool bBase = false) const;
+	int calculateTotalTradeYield(YieldTypes eIndex, PlayerTypes eWithPlayer = NO_PLAYER, bool bRound = false, bool bBase = false) const;
+// BUG - Trade Totals - end
 	void setTradeYield(YieldTypes eIndex, int iNewValue);
 
 	int getExtraSpecialistYield(YieldTypes eIndex) const;																				// Exposed to Python
@@ -620,10 +702,25 @@ public:
 
 	int getBuildingCommerce(CommerceTypes eIndex) const;																				// Exposed to Python
 	int getBuildingCommerceByBuilding(CommerceTypes eIndex, BuildingTypes eBuilding) const;			// Exposed to Python
+// BUG - Building Additional Commerce - start
+	int getAdditionalCommerceByBuilding(CommerceTypes eIndex, BuildingTypes eBuilding) const;						// Exposed to Python
+	int getAdditionalCommerceTimes100ByBuilding(CommerceTypes eIndex, BuildingTypes eBuilding) const;				// Exposed to Python
+	int getAdditionalBaseCommerceRateByBuilding(CommerceTypes eIndex, BuildingTypes eBuilding) const;				// Exposed to Python
+	int getAdditionalBaseCommerceRateByBuildingImpl(CommerceTypes eIndex, BuildingTypes eBuilding) const;
+	int getAdditionalCommerceRateModifierByBuilding(CommerceTypes eIndex, BuildingTypes eBuilding) const;			// Exposed to Python
+	int getAdditionalCommerceRateModifierByBuildingImpl(CommerceTypes eIndex, BuildingTypes eBuilding) const;
+// BUG - Building Additional Commerce - end
 	void updateBuildingCommerce();
 
 	int getSpecialistCommerce(CommerceTypes eIndex) const;											// Exposed to Python
 	void changeSpecialistCommerce(CommerceTypes eIndex, int iChange);			// Exposed to Python
+// BUG - Specialist Additional Commerce - start
+	int getAdditionalCommerceBySpecialist(CommerceTypes eIndex, SpecialistTypes eSpecialist, int iChange) const;				// Exposed to Python
+	int getAdditionalCommerceTimes100BySpecialist(CommerceTypes eIndex, SpecialistTypes eSpecialist, int iChange) const;		// Exposed to Python
+	int getAdditionalBaseCommerceRateBySpecialist(CommerceTypes eIndex, SpecialistTypes eSpecialist, int iChange) const;		// Exposed to Python
+	int getAdditionalBaseCommerceRateBySpecialistImpl(CommerceTypes eIndex, SpecialistTypes eSpecialist, int iChange) const;
+// BUG - Specialist Additional Commerce - end
+
 
 	int getReligionCommerce(CommerceTypes eIndex) const;																				// Exposed to Python
 	int getReligionCommerceByReligion(CommerceTypes eIndex, ReligionTypes eReligion) const;			// Exposed to Python
@@ -709,6 +806,11 @@ public:
 	int getBuildingProductionTime(BuildingTypes eIndex) const;										// Exposed to Python
 	void setBuildingProductionTime(BuildingTypes eIndex, int iNewValue);		// Exposed to Python
 	void changeBuildingProductionTime(BuildingTypes eIndex, int iChange);		// Exposed to Python
+// BUG - Production Decay - start
+	bool isBuildingProductionDecay(BuildingTypes eIndex) const;														// Exposed to Python
+	int getBuildingProductionDecay(BuildingTypes eIndex) const;														// Exposed to Python
+	int getBuildingProductionDecayTurns(BuildingTypes eIndex) const;												// Exposed to Python
+// BUG - Production Decay - end
 
 	int getProjectProduction(ProjectTypes eIndex) const;								// Exposed to Python
 	void setProjectProduction(ProjectTypes eIndex, int iNewValue);					// Exposed to Python
@@ -724,6 +826,11 @@ public:
 	int getUnitProductionTime(UnitTypes eIndex) const;														// Exposed to Python
 	void setUnitProductionTime(UnitTypes eIndex, int iNewValue);						// Exposed to Python
 	void changeUnitProductionTime(UnitTypes eIndex, int iChange);						// Exposed to Python
+// BUG - Production Decay - start
+	bool isUnitProductionDecay(UnitTypes eIndex) const;														// Exposed to Python
+	int getUnitProductionDecay(UnitTypes eIndex) const;														// Exposed to Python
+	int getUnitProductionDecayTurns(UnitTypes eIndex) const;												// Exposed to Python
+// BUG - Production Decay - end
 
 	int getGreatPeopleUnitRate(UnitTypes eIndex) const;														// Exposed to Python
 	void setGreatPeopleUnitRate(UnitTypes eIndex, int iNewValue);
@@ -1028,6 +1135,16 @@ protected:
 	bool m_bInfoDirty;
 	bool m_bLayoutDirty;
 	bool m_bPlundered;
+
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       12/07/09                         denev & jdog5000     */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+	bool m_bPopProductionProcess;
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 
 	PlayerTypes m_eOwner;
 	PlayerTypes m_ePreviousOwner;

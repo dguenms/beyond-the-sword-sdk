@@ -878,7 +878,11 @@ public:
 	int getNumUnitNames() const;							// Exposed to Python
 	int getCommandType() const;								// Exposed to Python
 	void setCommandType(int iNewType);
-
+	
+// BUG - Female Great People - start
+	bool isFemale() const;				// Exposed to Python
+	int getFemaleUnitType() const;
+// BUG - Female Great People - end
 	bool isAnimal() const;				// Exposed to Python
 	bool isFoodProduction() const;				// Exposed to Python
 	bool isNoBadGoodies() const;				// Exposed to Python
@@ -921,6 +925,10 @@ public:
 
 	float getUnitMaxSpeed() const;					// Exposed to Python
 	float getUnitPadTime() const;					// Exposed to Python
+	
+// BUG - Unit Experience - start
+	bool canAcquireExperience() const;				// Exposed to Python
+// BUG - Unit Experience - end
 
 	// Arrays
 
@@ -1060,7 +1068,10 @@ protected:
 	int m_iNumUnitNames;
 	int m_iCommandType;
 	int m_iLeaderExperience;
-
+	
+// BUG - Female Great People - start
+	bool m_bFemale;
+// BUG - Female Great People - end
 	bool m_bAnimal;
 	bool m_bFoodProduction;
 	bool m_bNoBadGoodies;
@@ -1726,6 +1737,17 @@ public:
 	int getBonusYieldModifier(int i, int j) const;				// Exposed to Python
 	int* getBonusYieldModifierArray(int i) const;
 
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       06/27/10                    Afforess & jdog5000       */
+/*                                                                                              */
+/* Efficiency                                                                                   */
+/************************************************************************************************/
+	bool isAnySpecialistYieldChange() const;
+	bool isAnyBonusYieldModifier() const;
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
+
 	// Other
 
 	const CvArtInfoBuilding* getArtInfo() const;
@@ -1900,7 +1922,16 @@ protected:
 
 	int** m_ppaiSpecialistYieldChange;
 	int** m_ppaiBonusYieldModifier;
-
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       06/27/10                    Afforess & jdog5000       */
+/*                                                                                              */
+/* Efficiency                                                                                   */
+/************************************************************************************************/
+	bool m_bAnySpecialistYieldChange;
+	bool m_bAnyBonusYieldModifier;
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -3115,6 +3146,11 @@ public:
 	int getDefenseModifier() const;						// Exposed to Python
 	int getAdvancedStartRemoveCost() const;						// Exposed to Python
 	int getTurnDamage() const;						// Exposed to Python
+// BUG - Global Warming Mod - start
+#ifdef _MOD_GWARM
+	int getWarmingDefense() const;						// Exposed to Python
+#endif
+// BUG - Global Warming Mod - end
 	
 	bool isNoCoast() const;						// Exposed to Python
 	bool isNoRiver() const;						// Exposed to Python
@@ -3127,6 +3163,9 @@ public:
 	bool isNoImprovement() const;			// Exposed to Python
 	bool isVisibleAlways() const;			// Exposed to Python
 	bool isNukeImmune() const;			// Exposed to Python
+// BUG - City Plot Status - start
+	bool isOnlyBad() const;				// Exposed to Python
+// BUG - City Plot Status - end
 	const TCHAR* getOnUnitChangeTo() const;
 
 	const TCHAR* getArtDefineTag() const;			
@@ -3166,6 +3205,11 @@ protected:
 	int m_iDefenseModifier;
 	int m_iAdvancedStartRemoveCost;
 	int m_iTurnDamage;
+// BUG - Global Warming Mod - start
+#ifdef _MOD_GWARM
+	int m_iWarmingDefense;
+#endif
+// BUG - Global Warming Mod - end
 	
 	bool m_bNoCoast;				
 	bool m_bNoRiver;					
@@ -5872,6 +5916,9 @@ public:
 	const CvWString& getWorldNews(int i) const;
 	int getNumWorldNews() const;
 
+// BUG - Events with Images - start
+	const TCHAR* getEventArt() const;				// Exposed to Python
+// BUG - Events with Images - end
 	bool isSinglePlayer() const;				// Exposed to Python
 	bool isTeam() const;						// Exposed to Python
 	bool isRecurring() const;					// Exposed to Python
@@ -5952,6 +5999,9 @@ private:
 	std::vector<CvWString> m_aszText;
 	std::vector<CvWString> m_aszWorldNews;
 
+// BUG - Events with Images - start
+	CvString m_szEventArt;
+// BUG - Events with Images - end
 	bool m_bSinglePlayer;
 	bool m_bTeam;
 	bool m_bRecurring;

@@ -14,6 +14,14 @@
 #include "CvReplayInfo.h"
 #include "CyPlot.h"
 
+// BUG - MapFinder - start
+#include "CvDLLEngineIFaceBase.h"
+// BUG - MapFinder - end
+
+// BUG - EXE/DLL Paths - start
+#include "CvInitCore.h"
+// BUG - EXE/DLL Paths - end
+
 CyGame::CyGame() : m_pGame(NULL)
 {
 	m_pGame = &GC.getGameINLINE();
@@ -1153,3 +1161,60 @@ void CyGame::doControl(int iControl)
 		m_pGame->doControl((ControlTypes) iControl);
 	}
 }
+
+// BUG - MapFinder - start
+// from HOF Mod - Dianthus
+bool CyGame::canRegenerateMap() const
+{
+	return (NULL != m_pGame ? m_pGame->canRegenerateMap() : false);
+}
+
+bool CyGame::regenerateMap()
+{
+	if (canRegenerateMap() && m_pGame)
+	{
+		m_pGame->regenerateMap();
+		return true;
+	}
+	return false;
+}
+
+
+void CyGame::saveGame(std::string fileName) const
+{
+	//m_pGame->setFileType(SAVE_HOFMOD);
+	gDLL->getEngineIFace()->SaveGame((CvString &)fileName, SAVEGAME_NORMAL);
+	//m_pGame->setFileType(SAVE_NORMAL);
+}
+
+bool CyGame::takeJPEGScreenShot(std::string fileName) const
+{
+	return (NULL != m_pGame ? m_pGame->takeJPEGScreenShot(fileName) : false);
+}
+// BUG - MapFinder - end
+
+// BUG - EXE/DLL Paths - start
+std::string CyGame::getDLLPath() const
+{
+	return GC.getInitCore().getDLLPath();
+}
+
+std::string CyGame::getExePath() const
+{
+	return GC.getInitCore().getExePath();
+}
+// BUG - EXE/DLL Paths - end
+
+// BUFFY - Security Checks - start
+#ifdef _BUFFY
+int CyGame::checkCRCs(std::string fileName_, std::string expectedModCRC_, std::string expectedDLLCRC_, std::string expectedShaderCRC_, std::string expectedPythonCRC_, std::string expectedXMLCRC_) const
+{
+	return NULL != m_pGame ? m_pGame->checkCRCs(fileName_, expectedModCRC_, expectedDLLCRC_, expectedShaderCRC_, expectedPythonCRC_, expectedXMLCRC_) : -1;
+}
+
+int CyGame::getWarningStatus() const
+{
+	return NULL != m_pGame ? m_pGame->getWarningStatus() : -1;
+}
+#endif
+// BUFFY - Security Checks - end
