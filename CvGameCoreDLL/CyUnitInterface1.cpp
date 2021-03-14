@@ -147,7 +147,10 @@ void CyUnitPythonInterface1(python::class_<CyUnit>& x)
 		.def("canBuildRoute", &CyUnit::canBuildRoute, "bool ()")
 		.def("getBuildType", &CyUnit::getBuildType, "int (BuildTypes) ()")
 		.def("workRate", &CyUnit::workRate, "int (bool bMax)")
-
+		
+// BUG - Female Great People - start
+		.def("isFemale", &CyUnit::isFemale, "bool ()")
+// BUG - Female Great People - end
 		.def("isAnimal", &CyUnit::isAnimal, "bool ()")
 		.def("isNoBadGoodies", &CyUnit::isNoBadGoodies, "bool ()")
 		.def("isOnlyDefensive", &CyUnit::isOnlyDefensive, "bool ()")

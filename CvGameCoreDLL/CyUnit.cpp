@@ -565,6 +565,13 @@ int CyUnit::workRate(bool bMax)
 	return m_pUnit ? m_pUnit->workRate(bMax) : -1;
 }
 
+// BUG - Female Great People - start
+bool CyUnit::isFemale()
+{
+	return m_pUnit ? m_pUnit->isFemale() : false;
+}
+// BUG - Female Great People - end
+
 bool CyUnit::isAnimal()
 {
 	return m_pUnit ? m_pUnit->isAnimal() : false;

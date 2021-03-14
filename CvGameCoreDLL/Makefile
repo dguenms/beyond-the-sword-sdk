@@ -164,8 +164,7 @@ Debug_LDFLAGS=/INCREMENTAL /DEBUG /IMPLIB:"$(Target_STATICLIB)" $(GLOBAL_LDFLAGS
 Release_LDFLAGS=/INCREMENTAL:NO /OPT:REF /OPT:ICF $(GLOBAL_LDFLAGS)
 
 #### INCLUDES ####
-GLOBAL_INCS=/I"$(TOOLKIT)/include" /I"$(PSDK)/Include" /I"$(PSDK)/Include/mfc"
-
+GLOBAL_INCS = /I"$(TOOLKIT)/include" /I"$(PSDK)/Include" /I"$(PSDK)/Include/mfc" include
 #### boost and python ####
 
 BOOST_LIB_PATH =
@@ -182,13 +181,13 @@ BOOST_LIB_PATH=$(CIV4_LIB_INSTALL_PATH)/
 !ENDIF
 !ENDIF
 
-PROJECT_INCS=/I"$(BOOST_LIB_PATH)Boost-1.32.0/include" /I"$(BOOST_LIB_PATH)Python24/include"
-PROJECT_LIBS=/LIBPATH:"$(BOOST_LIB_PATH)Python24/libs" /LIBPATH:"$(BOOST_LIB_PATH)boost-1.32.0/libs/" boost_python-vc71-mt-1_32.lib
+PROJECT_INCS=/I"$(BOOST_LIB_PATH)Boost-1.32.0/include" /I"$(BOOST_LIB_PATH)Python24/include" /I"include" include
 
 INCS = $(PROJECT_INCS) $(GLOBAL_INCS)
 
 #### LIBS ####
-GLOBAL_LIBS=/LIBPATH:"$(TOOLKIT)/lib" /LIBPATH:"$(PSDK)/Lib" winmm.lib user32.lib
+GLOBAL_LIBS = /LIBPATH:"$(TOOLKIT)/lib" /LIBPATH:"$(PSDK)/Lib" winmm.lib user32.lib 
+PROJECT_LIBS = /LIBPATH:"$(BOOST_LIB_PATH)Python24/libs" /LIBPATH:"$(BOOST_LIB_PATH)boost-1.32.0/libs/" /LIBPATH:lib boost_python-vc71-mt-1_32.lib gdi32.lib Ole32.lib CxImage.lib
 LIBS = $(PROJECT_LIBS) $(GLOBAL_LIBS)
 
 

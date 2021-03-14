@@ -881,7 +881,18 @@ void CvCityAI::AI_chooseProduction()
 			}
 		}
 		
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       09/19/09                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* orginal bts code
 		if (!bDanger && (iNeededWorkers > 0) && (AI_getWorkersNeeded() > 0) && (AI_getWorkersHave() == 0))
+*/
+		if (!bDanger && (iNeededWorkers > iExistingWorkers) && (AI_getWorkersNeeded() > 0) && (AI_getWorkersHave() == 0))
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 		{
 			if (AI_chooseUnit(UNITAI_WORKER))
 			{
@@ -1439,7 +1450,18 @@ void CvCityAI::AI_chooseProduction()
 		}
 	}
 	
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       09/19/09                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* orginal bts code
 	if (iNeededWorkers < iExistingWorkers)
+*/
+	if ( iExistingWorkers < iNeededWorkers )
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 	{
 		if ((AI_getWorkersNeeded() > 0) && (AI_getWorkersHave() == 0))
 		{
@@ -3118,6 +3140,12 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
 								iTempValue *= (20 + (40 * kBuilding.getSpecialistCount(iI)));
 								iTempValue /= 100;
 								
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       01/09/10                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* original bts code
 								if (iFoodDifference < 2)
 								{
 									iValue /= 4;
@@ -3126,6 +3154,18 @@ int CvCityAI::AI_buildingValueThreshold(BuildingTypes eBuilding, int iFocusFlags
 								{
 									iValue /= 1 + iRunnable;
 								}
+*/
+								if (iFoodDifference < 2)
+								{
+									iTempValue /= 4;
+								}
+								if (iRunnable > 0)
+								{
+									iTempValue /= 1 + iRunnable;
+								}
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 
 								iSpecialistsValue += std::max(12, (iTempValue / 100));
 							}
@@ -4407,6 +4447,12 @@ int CvCityAI::AI_neededDefenders()
 	
 	if ((GC.getGame().getGameTurn() - getGameTurnAcquired()) < 10)
 	{
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       05/22/08                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* original code
 		if (bOffenseWar)
 		{
 			if (!hasActiveWorldWonder() && !isHolyCity())
@@ -4428,6 +4474,28 @@ int CvCityAI::AI_neededDefenders()
 		{
 			iDefenders ++;
 		}
+*/
+		iDefenders = std::max(2, iDefenders);
+
+		if (bOffenseWar)
+		{
+			if (!hasActiveWorldWonder() && !isHolyCity())
+			{
+				iDefenders /= 2;
+			}
+		}		
+		
+		if (AI_isDanger())
+		{
+			iDefenders++;
+		}
+		if (bDefenseWar)
+		{
+			iDefenders++;
+		}
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 	}
 	
 	if (GET_PLAYER(getOwnerINLINE()).AI_isDoStrategy(AI_STRATEGY_LAST_STAND))
@@ -5118,7 +5186,18 @@ void CvCityAI::AI_updateBestBuild()
 	
 	
 	int iNetCommerce = 1 + kPlayer.getCommerceRate(COMMERCE_GOLD) + kPlayer.getCommerceRate(COMMERCE_RESEARCH) + std::max(0, kPlayer.getGoldPerTurn());
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       06/11/09                       jdog5000 & DanF5771    */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* original BTS code
 	int iNetExpenses = kPlayer.calculateInflatedCosts() + std::min(0, kPlayer.getGoldPerTurn());
+*/
+	int iNetExpenses = kPlayer.calculateInflatedCosts() + std::max(0, -kPlayer.getGoldPerTurn());
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 	int iRatio = (100 * iNetExpenses) / std::max(1, iNetCommerce);
 	
 	if (iRatio > 40)
@@ -5506,7 +5585,18 @@ void CvCityAI::AI_doHurry(bool bForce)
 					if (iValuePerTurn > 0)
 					{
 						int iHurryGold = hurryGold((HurryTypes)iI);
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       08/06/09                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* original bts code
 						if ((iHurryGold / iValuePerTurn) < getProductionTurnsLeft(eProductionBuilding, 1))
+*/
+						if ( (iHurryGold > 0) && ((iHurryGold / iValuePerTurn) < getProductionTurnsLeft(eProductionBuilding, 1)) )
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 						{
 							if (iHurryGold < (GET_PLAYER(getOwnerINLINE()).getGold() / 3))
 							{
@@ -5805,6 +5895,12 @@ void CvCityAI::AI_doHurry(bool bForce)
 					hurry((HurryTypes)iI);
 					break;					
 				}
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       08/06/09                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* original bts code
 				if (AI_countGoodTiles((healthRate(0) == 0), false, 100) <= (getPopulation() - iHurryPopulation))
 				{
 					hurry((HurryTypes)iI);
@@ -5813,6 +5909,22 @@ void CvCityAI::AI_doHurry(bool bForce)
 			}
 			if (AI_countGoodTiles((healthRate(0) == 0), false, 100) <= (getPopulation() - iHurryPopulation))
 			{
+*/
+				// Only consider population hurry if that's actually what the city can do!!!
+				if( (iHurryPopulation > 0) && (getPopulation() > iHurryPopulation) )
+				{
+					if (AI_countGoodTiles((healthRate(0) == 0), false, 100) <= (getPopulation() - iHurryPopulation))
+					{
+						hurry((HurryTypes)iI);
+						break;					
+					}
+				}				
+			}
+			if ((iHurryPopulation > 0) && (AI_countGoodTiles((healthRate(0) == 0), false, 100) <= (getPopulation() - iHurryPopulation)))
+			{
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 				if (getProductionTurnsLeft() > iMinTurns)
 				{
 					bWait = isHuman();
@@ -6829,6 +6941,12 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
 		aiCommerceYieldsTimes100[iJ] += (iCommerceTimes100 * iModifier) / 100;
 	}
 
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       07/09/09                                jdog5000      */
+/*                                                                                              */
+/* General AI                                                                                   */
+/************************************************************************************************/
+/* original BTS code
 	if (isProductionProcess() && !bWorkerOptimization)
 	{
 		for (int iJ = 0; iJ < NUM_COMMERCE_TYPES; iJ++)
@@ -6838,6 +6956,12 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
 
 		aiYields[YIELD_PRODUCTION] = 0;
 	}
+*/
+	// Above code causes governor and AI to heavily weight food when building any form of commerce,
+	// which is not expected by human and does not seem to produce better results for AI either.  
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 	
 	// should not really use this much, but making it accurate
 	aiYields[YIELD_COMMERCE] = 0;
@@ -7201,6 +7325,13 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
 	//unusually high transient production modifiers.
 	//Other yields don't have transient bonuses in quite the same way.
 
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       05/16/10                                jdog5000      */
+/*                                                                                              */
+/* City AI                                                                                      */
+/************************************************************************************************/
+	// Rounding can be a problem, particularly for small commerce amounts.  Added safe guards to make
+	// sure commerce is counted, even if just a tiny amount.
 	if (AI_isEmphasizeYield(YIELD_PRODUCTION))
 	{
 		iProductionValue *= 130;
@@ -7212,15 +7343,17 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
 			iFoodValue /= 100;
 		}
 		
-		if (!AI_isEmphasizeYield(YIELD_COMMERCE))
+		if (!AI_isEmphasizeYield(YIELD_COMMERCE) && iCommerceValue > 0)
 		{
 			iCommerceValue *= 60;
 			iCommerceValue /= 100;
+			iCommerceValue = std::max(1, iCommerceValue);
 		}
-		if (!AI_isEmphasizeYield(YIELD_FOOD))
+		if (!AI_isEmphasizeYield(YIELD_FOOD) && iFoodValue > 0)
 		{
 			iFoodValue *= 75;
 			iFoodValue /= 100;
+			iFoodValue = std::max(1, iFoodValue);
 		}
 	}
 	if (AI_isEmphasizeYield(YIELD_FOOD))
@@ -7237,23 +7370,26 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
 	{
 		iCommerceValue *= 130;
 		iCommerceValue /= 100;
-		if (!AI_isEmphasizeYield(YIELD_PRODUCTION))
+		if (!AI_isEmphasizeYield(YIELD_PRODUCTION) && iProductionValue > 0)
 		{
 			iProductionValue *= 75;
 			iProductionValue /= 100;
+			iProductionValue = std::max(1,iProductionValue);
 		}
-		if (!AI_isEmphasizeYield(YIELD_FOOD))
+		if (!AI_isEmphasizeYield(YIELD_FOOD) && iFoodValue > 0)
 		{
 			//Don't supress twice.
 			if (!AI_isEmphasizeYield(YIELD_PRODUCTION))
 			{
 				iFoodValue *= 80;
 				iFoodValue /= 100;
+				iFoodValue = std::max(1, iFoodValue);
 			}
 		}
 	}
 		
-
+	if( iProductionValue > 0 )
+	{
 	if (isFoodProduction())
 	{
 		iProductionValue *= 100 + (bWorkerOptimization ? 0 : AI_specialYieldMultiplier(YIELD_PRODUCTION));
@@ -7270,17 +7406,25 @@ int CvCityAI::AI_yieldValue(short* piYields, short* piCommerceYields, bool bAvoi
 		iProductionValue /= GET_PLAYER(getOwnerINLINE()).AI_averageYieldMultiplier(YIELD_PRODUCTION);
 	}
 	
-	iValue += iProductionValue;
+		iValue += std::max(1,iProductionValue);
+	}
 	
-	
+	if( iCommerceValue > 0 )
+	{
 	iCommerceValue *= (100 + (bWorkerOptimization ? 0 : AI_specialYieldMultiplier(YIELD_COMMERCE)));
 	iCommerceValue /= GET_PLAYER(getOwnerINLINE()).AI_averageYieldMultiplier(YIELD_COMMERCE);
-	iValue += iCommerceValue;
+		iValue += std::max(1, iCommerceValue);
+	}
 //	
+	if( iFoodValue > 0 )
+	{
 	iFoodValue *= 100;
 	iFoodValue /= GET_PLAYER(getOwnerINLINE()).AI_averageYieldMultiplier(YIELD_FOOD);
-	iValue += iFoodValue;
-
+		iValue += std::max(1, iFoodValue);
+	}
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 	
 	return iValue;
 }
@@ -8261,7 +8405,18 @@ int CvCityAI::AI_calculateCulturePressure(bool bGreatWork)
                         iTempValue += (GET_PLAYER(getOwnerINLINE()).AI_bonusVal(eNonObsoleteBonus) * ((GET_PLAYER(getOwnerINLINE()).getNumTradeableBonuses(eNonObsoleteBonus) == 0) ? 4 : 2));
                     }
 
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       03/20/10                          denev & jdog5000    */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* original bts code
                     if ((iTempValue > 80) && (pLoopPlot->getOwnerINLINE() == getID()))
+*/
+					if ((iTempValue > 80) && (pLoopPlot->getOwnerINLINE() == getOwnerINLINE()))
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
                     {
                         //captured territory special case
                         iTempValue *= (100 - iTempValue);
@@ -8341,6 +8496,11 @@ void CvCityAI::AI_buildGovernorChooseProduction()
         }
 	}
 	
+// BUG - Governor Builds Workboats - start
+#ifdef _MOD_GOVWORKERS
+	if (!isHuman() || GET_PLAYER(getOwnerINLINE()).isOption(PLAYEROPTION_MODDER_1))
+	{
+#endif
 	//workboat
 	if (pWaterArea != NULL)
 	{
@@ -8355,6 +8515,10 @@ void CvCityAI::AI_buildGovernorChooseProduction()
 			}
 		}
 	}
+#ifdef _MOD_GOVWORKERS
+	}
+#endif
+// BUG - Governor Builds Workboats - end
 
 	if ((AI_countNumBonuses(NO_BONUS, false, true, 10, true, true) > 0)
 		&& (getPopulation() > AI_countNumBonuses(NO_BONUS, true, false, -1, true, true)))
@@ -8419,6 +8583,11 @@ void CvCityAI::AI_buildGovernorChooseProduction()
 		return;
 	}
 	
+// BUG - Governor Builds Workers - start
+#ifdef _MOD_GOVWORKERS
+	if (!isHuman() || GET_PLAYER(getOwnerINLINE()).isOption(PLAYEROPTION_MODDER_2))
+	{
+#endif
 	int iExistingWorkers = GET_PLAYER(getOwner()).AI_totalAreaUnitAIs(area(), UNITAI_WORKER);
     int iNeededWorkers = GET_PLAYER(getOwner()).AI_neededWorkers(area());
     
@@ -8429,6 +8598,10 @@ void CvCityAI::AI_buildGovernorChooseProduction()
 			return;
 		}
 	}	    
+#ifdef _MOD_GOVWORKERS
+	}
+#endif
+// BUG - Governor Builds Workers - end
 
     if (GC.getDefineINT("DEFAULT_SPECIALIST") != NO_SPECIALIST)
     {
@@ -9110,10 +9283,24 @@ int CvCityAI::AI_cityThreat(bool bDangerPercent)
 						FAssert(false);
 						break;
 					}
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       01/04/09                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+/* orginal bts code
 					if (bCrushStrategy)
 					{
 						iValue /= 2;
 					}
+*/
+					if (bCrushStrategy)
+					{
+						iTempValue /= 2;
+					}
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 				}
 				iTempValue /= 100;
 				iValue += iTempValue;

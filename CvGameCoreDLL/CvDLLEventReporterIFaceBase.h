@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef CvDLLEventReporterIFaceBase_h
 #define CvDLLEventReporterIFaceBase_h
 

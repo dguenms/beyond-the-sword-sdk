@@ -453,7 +453,19 @@ AreaAITypes CvTeamAI::AI_calculateAreaAIType(CvArea* pArea, bool bPreparingTotal
 		{
 			for (int iPlayer = 0; iPlayer < MAX_CIV_PLAYERS; iPlayer++)
 			{
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       09/17/09                      cephalo & jdog5000      */
+/*                                                                                              */
+/* Bugfix				                                                                         */
+/************************************************************************************************/
+/* original BTS code
 				CvPlayerAI& kPlayer = GET_PLAYER((PlayerTypes)iI);
+*/
+				CvPlayerAI& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
+				
 				if (kPlayer.isAlive())
 				{
 					if (kPlayer.getTeam() == getID())
@@ -530,6 +542,8 @@ AreaAITypes CvTeamAI::AI_calculateAreaAIType(CvArea* pArea, bool bPreparingTotal
 
 int CvTeamAI::AI_calculateAdjacentLandPlots(TeamTypes eTeam) const
 {
+	PROFILE_FUNC();
+
 	CvPlot* pLoopPlot;
 	int iCount;
 	int iI;
@@ -3558,8 +3572,16 @@ void CvTeamAI::AI_doWar()
 					}
 				}
 			}
-			else if ((bFinancesProMaxWar || !bFinancesOpposeWar) &&
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                       01/02/09                                jdog5000      */
+/*                                                                                              */
+/* Bugfix                                                                                       */
+/************************************************************************************************/
+			else if ((bFinancesProLimitedWar || !bFinancesOpposeWar) &&
 				(GC.getGameINLINE().getSorenRandNum(iLimitedWarRand, "AI Limited War") == 0))
+/************************************************************************************************/
+/* UNOFFICIAL_PATCH                        END                                                  */
+/************************************************************************************************/
 			{
 				iNoWarRoll = GC.getGameINLINE().getSorenRandNum(100, "AI No War") - 10;
 				iNoWarRoll = range(iNoWarRoll + (bAggressive ? 10 : 0) + (bFinancesProLimitedWar ? 10 : 0), 0, 99);
