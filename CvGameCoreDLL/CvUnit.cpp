@@ -1116,9 +1116,14 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 	}
 
 	collateralCombat(pPlot, pDefender);
+// Custom Combat - MaxCombatRounds - start
+	bool bCustomCombatEnabled = getBugOptionBOOL("CustomCombat__Enabled", true, "CUSTOM_COMBAT_ENABLED");
+	int iCustomCombatMaxCombatRounds = getBugOptionINT("CustomCombat__MaxCombatRounds", true, "CUSTOM_COMBAT_MAX_COMBAT_ROUNDS");
+	int iMaxCombatRounds = bCustomCombatEnabled ? iCustomCombatMaxCombatRounds : 100;
 
-	while (true)
+	for (int iCurrentCombatRound = 1; iCurrentCombatRound <= iMaxCombatRounds; iCurrentCombatRound++) // Keep damaging one unit until someone dies, withdraws, or combat otherwise ends
 	{
+// Custom Combat - MaxCombatRounds - end
 		if (GC.getGameINLINE().getSorenRandNum(GC.getDefineINT("COMBAT_DIE_SIDES"), "Combat") < iDefenderOdds)
 		{
 			if (getCombatFirstStrikes() == 0)

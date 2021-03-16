@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+	Unit Naming
+	by Freaky
+-->
+<mod id="CustomCombat" 
+	 name="Custom Combat" 
+	 author="Freaky" 
+	 version="1.0" 
+	 date="03/15/2021"
+	 url="https://forums.civfanatics.com/threads/custom-combat.668090/">
+	 
+	<options id="CustomCombat" file="Custom Combat.ini">
+		<section id="Custom Combat">
+			<option id="Enabled" key="Enabled" 
+					type="boolean" default="True"/>
+      <option id="MaxCombatRounds" key="MaxCombatRounds"
+					type="int" default="5" />
+		</section>
+	</options>
+	
+</mod>
