@@ -474,17 +474,28 @@
 		<Italian>Caratteristiche:</Italian>
 		<Spanish>Unit Specialties:</Spanish>
 	</TEXT>
-	
-	<!-- ACO Tab -->
-	
-	<TEXT>
-		<Tag>TXT_KEY_BUG_OPTTAB_ACO</Tag>
-		<English>Odds</English>
-		<French>Odds</French>
-		<German>Siegchancen</German>
-		<Italian>Probabilità</Italian>
-		<Spanish>Odds</Spanish>
-	</TEXT>
+
+  <!-- ACO Tab -->
+
+  <TEXT>
+    <Tag>TXT_KEY_BUG_OPTTAB_ACO</Tag>
+    <English>Odds</English>
+    <French>Odds</French>
+    <German>Siegchancen</German>
+    <Italian>Probabilità</Italian>
+    <Spanish>Odds</Spanish>
+  </TEXT>
+
+  <!-- Custom Combat Tab -->
+
+  <TEXT>
+    <Tag>TXT_KEY_BUG_OPTTAB_CUSTOM_COMBAT</Tag>
+    <English>Custom Combat</English>
+    <French>Combat personnalisé</French>
+    <German>Siegchancen</German>
+    <Italian>Combattimento personalizzato</Italian>
+    <Spanish>Combate personalizado</Spanish>
+  </TEXT>
 	
 	<!-- Alerts Tab -->
 	

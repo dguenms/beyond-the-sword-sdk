@@ -34,7 +34,7 @@
 TOOLKIT=$(PROGRAMFILES)\Civ4SDK\Microsoft Visual C++ Toolkit 2003
 PSDK=$(PROGRAMFILES)\Civ4SDK\WindowsSDK
 ## Uncomment to have newly compiled dlls copied to your mod's Assets directory
-YOURMOD=D:\SteamD\steamapps\common\Civ4\Beyond the Sword\Mods\Custom Combat
+YOURMOD=D:\SteamD\steamapps\common\Civ4\Beyond the Sword
 
 ## Civ install path
 ## Path to the directory where boost and python is stored
@@ -164,7 +164,7 @@ Debug_LDFLAGS=/INCREMENTAL /DEBUG /IMPLIB:"$(Target_STATICLIB)" $(GLOBAL_LDFLAGS
 Release_LDFLAGS=/INCREMENTAL:NO /OPT:REF /OPT:ICF $(GLOBAL_LDFLAGS)
 
 #### INCLUDES ####
-GLOBAL_INCS = /I"$(TOOLKIT)/include" /I"$(PSDK)/Include" /I"$(PSDK)/Include/mfc" include
+GLOBAL_INCS = /I"$(TOOLKIT)/include" /I"$(PSDK)/Include" /I"$(PSDK)/Include/mfc"
 #### boost and python ####
 
 BOOST_LIB_PATH =
@@ -181,7 +181,7 @@ BOOST_LIB_PATH=$(CIV4_LIB_INSTALL_PATH)/
 !ENDIF
 !ENDIF
 
-PROJECT_INCS=/I"$(BOOST_LIB_PATH)Boost-1.32.0/include" /I"$(BOOST_LIB_PATH)Python24/include" /I"include" include
+PROJECT_INCS=/I"$(BOOST_LIB_PATH)Boost-1.32.0/include" /I"$(BOOST_LIB_PATH)Python24/include" /I"include"
 
 INCS = $(PROJECT_INCS) $(GLOBAL_INCS)
 

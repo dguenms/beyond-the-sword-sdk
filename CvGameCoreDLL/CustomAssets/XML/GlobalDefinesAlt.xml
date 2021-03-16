@@ -522,4 +522,14 @@
 		<iDefineIntVal>1</iDefineIntVal>
 	</Define>
 
+
+  <Define>
+    <DefineName>CUSTOM_COMBAT_ENABLED</DefineName>
+    <iDefineIntVal>1</iDefineIntVal>
+  </Define>
+  <Define>
+    <DefineName>CUSTOM_COMBAT_MAX_COMBAT_ROUNDS</DefineName>
+    <iDefineIntVal>100</iDefineIntVal>
+  </Define>
+
 </Civ4Defines>

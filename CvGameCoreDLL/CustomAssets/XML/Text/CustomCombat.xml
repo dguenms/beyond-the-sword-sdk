@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--
+	Custom Combat Translations
+
+	Copyright (c) 2010 The BUG Mod.
+  -->
+<Civ4GameText xmlns="http://www.firaxis.com">
+	
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_CUSTOMCOMBAT__ENABLED_TEXT</Tag>
+		<English>Custom Combat Enabled</English>
+		<French>Custom Combat Enabled</French>
+		<German>Custom Combat Enabled</German>
+		<Italian>Custom Combat Enabled</Italian>
+		<Spanish>Custom Combat Enabled</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_CUSTOMCOMBAT__ENABLED_HOVER</Tag>
+		<English>When checked, the custom combat options below will affect how combat operates.</English>
+		<French>When checked, the custom combat options below will affect how combat operates.</French>
+		<German>When checked, the custom combat options below will affect how combat operates.</German>
+		<Italian>When checked, the custom combat options below will affect how combat operates.</Italian>
+		<Spanish>When checked, the custom combat options below will affect how combat operates.</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_CUSTOMCOMBAT__MAXCOMBATROUNDS_TEXT</Tag>
+		<English>Max Combat Rounds</English>
+		<French>Max Combat Rounds</French>
+		<German>Max Combat Rounds</German>
+		<Italian>Max Combat Rounds</Italian>
+		<Spanish>Max Combat Rounds</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_CUSTOMCOMBAT__MAXCOMBATROUNDS_HOVER</Tag>
+		<English>The maximum number of rounds that combat will last before each unit goes back to where they were.  ~20 = Winner takes all (original Civ4).  1 = Hit and run.  ~6 = similar to Civ5</English>
+		<French>The maximum number of rounds that combat will last before each unit goes back to where they were.  ~20 = Winner takes all (original Civ4).  1 = Hit and run.  ~6 = similar to Civ5</French>
+		<German>The maximum number of rounds that combat will last before each unit goes back to where they were.  ~20 = Winner takes all (original Civ4).  1 = Hit and run.  ~6 = similar to Civ5</German>
+		<Italian>The maximum number of rounds that combat will last before each unit goes back to where they were.  ~20 = Winner takes all (original Civ4).  1 = Hit and run.  ~6 = similar to Civ5</Italian>
+		<Spanish>The maximum number of rounds that combat will last before each unit goes back to where they were.  ~20 = Winner takes all (original Civ4).  1 = Hit and run.  ~6 = similar to Civ5</Spanish>
+	</TEXT>
+</Civ4GameText>

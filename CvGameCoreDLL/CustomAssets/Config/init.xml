@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Main BUG Mod Initialization
 
@@ -140,7 +140,8 @@
 	
 	<load mod="Autolog"/>
 	<load mod="Reminder"/>  <!-- requires Autolog -->
-	<load mod="Civ4lerts"/>
+  <load mod="Civ4lerts"/>
+  <load mod="Custom Combat"/>
 	<load mod="MoreCiv4lerts"/>
 	<load mod="Unit Naming"/>
 	<load mod="FavoriteCivicDetector"/>
@@ -171,7 +172,7 @@
 		<tab module="BugMapOptionsTab"/>
 		<tab module="BugCityScreenOptionsTab"/>
 		
-		<tab module="BugAdvisorOptionsTab"/>
+    <tab module="BugAdvisorOptionsTab"/>
 		
 		<tab module="BugAlertsOptionsTab"/>
 		<tab module="BugScoreOptionsTab"/>
@@ -179,6 +180,9 @@
 		
 		<tab module="BugPleOptionsTab"/>
 		<tab module="BugACOOptionsTab"/>
+    
+    <tab module="CustomCombatOptionsTab"/>
+    
 		<tab module="BugUnitNameOptionsTab"/>
 		
 		<tab module="BugAutologOptionsTab"/>
