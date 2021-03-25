@@ -40,18 +40,18 @@
   </TEXT>
   <TEXT>
     <Tag>TXT_KEY_BUG_OPT_CUSTOMCOMBAT__DAMAGEMULTIPLIER_TEXT</Tag>
-    <English>Damage Multiplier</English>
-    <French>Damage Multiplier</French>
-    <German>Damage Multiplier</German>
-    <Italian>Damage Multiplier</Italian>
-    <Spanish>Damage Multiplier</Spanish>
+    <English>Damage Multiplier(%)</English>
+    <French>Damage Multiplier(%)</French>
+    <German>Damage Multiplier(%)</German>
+    <Italian>Damage Multiplier(%)</Italian>
+    <Spanish>Damage Multiplier(%)</Spanish>
   </TEXT>
   <TEXT>
     <Tag>TXT_KEY_BUG_OPT_CUSTOMCOMBAT__DAMAGEMULTIPLIER_HOVER</Tag>
-    <English>How much damage non-air combat causes.  2 = every hit causes double damage (more random results, bonus to first strikes).  .5 = Every hit causes 1/2 damage (less random results, first strikes mean less)</English>
-    <French>How much damage non-air combat causes.  2 = every hit causes double damage (more random results, bonus to first strikes).  .5 = Every hit causes 1/2 damage (less random results, first strikes mean less)</French>
-    <German>How much damage non-air combat causes.  2 = every hit causes double damage (more random results, bonus to first strikes).  .5 = Every hit causes 1/2 damage (less random results, first strikes mean less)</German>
-    <Italian>How much damage non-air combat causes.  2 = every hit causes double damage (more random results, bonus to first strikes).  .5 = Every hit causes 1/2 damage (less random results, first strikes mean less)</Italian>
-    <Spanish>How much damage non-air combat causes.  2 = every hit causes double damage (more random results, bonus to first strikes).  .5 = Every hit causes 1/2 damage (less random results, first strikes mean less)</Spanish>
+    <English>How much damage non-air combat causes as a percentage.  200 = every hit causes double damage (more random results, bonus to first strikes).  50 = Every hit causes 1/2 damage (less random results, first strikes mean less)</English>
+    <French>How much damage non-air combat causes as a percentage.  200 = every hit causes double damage (more random results, bonus to first strikes).  50 = Every hit causes 1/2 damage (less random results, first strikes mean less)</French>
+    <German>How much damage non-air combat causes as a percentage.  200 = every hit causes double damage (more random results, bonus to first strikes).  50 = Every hit causes 1/2 damage (less random results, first strikes mean less)</German>
+    <Italian>How much damage non-air combat causes as a percentage.  200 = every hit causes double damage (more random results, bonus to first strikes).  50 = Every hit causes 1/2 damage (less random results, first strikes mean less)</Italian>
+    <Spanish>How much damage non-air combat causes as a percentage.  200 = every hit causes double damage (more random results, bonus to first strikes).  50 = Every hit causes 1/2 damage (less random results, first strikes mean less)</Spanish>
   </TEXT>  
 </Civ4GameText>
