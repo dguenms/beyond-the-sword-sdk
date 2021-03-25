@@ -531,5 +531,9 @@
     <DefineName>CUSTOM_COMBAT_MAX_COMBAT_ROUNDS</DefineName>
     <iDefineIntVal>100</iDefineIntVal>
   </Define>
+  <Define>
+    <DefineName>CUSTOM_COMBAT_DAMAGE_MULTIPLIER</DefineName>
+    <iDefineIntVal>150</iDefineIntVal>
+	</Define>
 
 </Civ4Defines>

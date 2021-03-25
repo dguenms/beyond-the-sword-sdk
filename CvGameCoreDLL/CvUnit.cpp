@@ -1118,15 +1118,16 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 	collateralCombat(pPlot, pDefender);
 // Custom Combat - MaxCombatRounds - start
 	bool bCustomCombatEnabled = getBugOptionBOOL("CustomCombat__Enabled", true, "CUSTOM_COMBAT_ENABLED");
-	int iCustomCombatMaxCombatRounds = getBugOptionINT("CustomCombat__MaxCombatRounds", true, "CUSTOM_COMBAT_MAX_COMBAT_ROUNDS");
-	int iMaxCombatRounds = bCustomCombatEnabled ? iCustomCombatMaxCombatRounds : 100;
+	int iCustomCombatMaxCombatRounds = getBugOptionINT("CustomCombat__MaxCombatRounds", 1, "CUSTOM_COMBAT_MAX_COMBAT_ROUNDS");
+	int iCustomCombatDamageMultiplier = getBugOptionINT("CustomCombat__DamageMultiplier", 1, "CUSTOM_COMBAT_DAMAGE_MULTIPLIER");
 
-	for (int iCurrentCombatRound = 1; iCurrentCombatRound <= iMaxCombatRounds; iCurrentCombatRound++) // Keep damaging one unit until someone dies, withdraws, or combat otherwise ends
+	for (int iCurrentCombatRound = 1; iCurrentCombatRound <= iCustomCombatMaxCombatRounds || !bCustomCombatEnabled; iCurrentCombatRound++) // Keep damaging one unit until someone dies, withdraws, or combat otherwise ends
 	{
 // Custom Combat - MaxCombatRounds - end
 		if (GC.getGameINLINE().getSorenRandNum(GC.getDefineINT("COMBAT_DIE_SIDES"), "Combat") < iDefenderOdds)
 		{
-			if (getCombatFirstStrikes() == 0)
+			// Defender wins round
+			if (getCombatFirstStrikes() == 0) // Attacker loss counts as missed first strike by attacker as long as it has some left
 			{
 				if (getDamage() + iAttackerDamage >= maxHitPoints() && GC.getGameINLINE().getSorenRandNum(100, "Withdrawal") < withdrawalProbability())
 				{
@@ -1156,13 +1157,15 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 					pyArgs.add(gDLL->getPythonIFace()->makePythonObject(&cdDefenderDetails));
 					pyArgs.add(1);
 					pyArgs.add(iAttackerDamage);
+					pyArgs.add(iCustomCombatDamageMultiplier);
 					CvEventReporter::getInstance().genericEvent("combatLogHit", pyArgs.makeFunctionArgs());
 				}
 			}
 		}
 		else
 		{
-			if (pDefender->getCombatFirstStrikes() == 0)
+			// Attacker wins round
+			if (pDefender->getCombatFirstStrikes() == 0) // Attacker win counts as missed first strike by defender as long as it has some left
 			{
 				if (std::min(GC.getMAX_HIT_POINTS(), pDefender->getDamage() + iDefenderDamage) > combatLimit())
 				{
@@ -1173,6 +1176,12 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 // BUG - Combat Events - end
 					break;
 				}
+
+				//int newDmg = pDefender->getDamage() + iChange;
+
+				//CvWString szBuffer = gDLL->getText("TXT_KEY_CUSTOM_COMBAT_CHANGE_DAMAGE_LOG", "", pDefender->getDamage(), newDmg);
+
+				//gDLL->getInterfaceIFace()->addMessage(, true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_COMBAT", MESSAGE_TYPE_INFO, getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), getX_INLINE(), getY_INLINE());
 
 				pDefender->changeDamage(iDefenderDamage, getOwnerINLINE());
 
@@ -1191,6 +1200,7 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 					pyArgs.add(gDLL->getPythonIFace()->makePythonObject(&cdDefenderDetails));
 					pyArgs.add(0);
 					pyArgs.add(iDefenderDamage);
+					pyArgs.add(iCustomCombatDamageMultiplier);
 					CvEventReporter::getInstance().genericEvent("combatLogHit", pyArgs.makeFunctionArgs());
 				}
 			}
@@ -1210,6 +1220,7 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 		{
 			if (isDead())
 			{
+				// Attacker died
 				int iExperience = defenseXPValue();
 				iExperience = ((iExperience * iAttackerStrength) / iDefenderStrength);
 				iExperience = range(iExperience, GC.getDefineINT("MIN_EXPERIENCE_PER_COMBAT"), GC.getDefineINT("MAX_EXPERIENCE_PER_COMBAT"));
@@ -1217,6 +1228,7 @@ void CvUnit::resolveCombat(CvUnit* pDefender, CvPlot* pPlot, CvBattleDefinition&
 			}
 			else
 			{
+				// Defender died
 				flankingStrikeCombat(pPlot, iAttackerStrength, iAttackerFirepower, iAttackerKillOdds, iDefenderDamage, pDefender);
 
 				int iExperience = pDefender->attackXPValue();

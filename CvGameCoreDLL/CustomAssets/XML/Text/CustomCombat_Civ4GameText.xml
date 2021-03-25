@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Game Text Infos -->
+<Civ4GameText xmlns="http://www.firaxis.com">
+  <TEXT>
+    <Tag>TXT_KEY_CUSTOM_COMBAT_CHANGE_DAMAGE_LOG</Tag>
+    <English>Changing %i1's damage from %i2 to %i3</English>
+    <French>Changing %i1's damage from %i2 to %i3</French>
+    <German>Changing %i1's damage from %i2 to %i3</German>
+    <Italian>Changing i1's damage from %i2 to %i3</Italian>
+    <Spanish>Changing %i1's damage from %i2 to %i3</Spanish>
+  </TEXT>
+</Civ4GameText>

@@ -2591,7 +2591,7 @@ FVariableSystem* CvGlobals::getDefinesVarSystem()
 	return m_VarSystem;
 }
 
-void CvGlobals::cacheGlobals()
+void CvGlobals::cacheGlobals(bool refreshFromBugOptions)
 {
 	m_iMOVE_DENOMINATOR = getDefineINT("MOVE_DENOMINATOR");
 	m_iNUM_UNIT_PREREQ_OR_BONUSES = getDefineINT("NUM_UNIT_PREREQ_OR_BONUSES");
@@ -2669,6 +2669,16 @@ void CvGlobals::cacheGlobals()
 	m_iUSE_ON_UPDATE_CALLBACK = getDefineINT("USE_ON_UPDATE_CALLBACK");
 	m_iUSE_ON_UNIT_CREATED_CALLBACK = getDefineINT("USE_ON_UNIT_CREATED_CALLBACK");
 	m_iUSE_ON_UNIT_LOST_CALLBACK = getDefineINT("USE_ON_UNIT_LOST_CALLBACK");
+
+	if (refreshFromBugOptions)
+	{
+		int iCombatDamageModifier = getBugOptionINT("CustomCombat__DamageMultiplier", 1, "CUSTOM_COMBAT_DAMAGE_MULTIPLIER");
+		float fCombatDamageModifier = float(iCombatDamageModifier);
+		float fPercent = fCombatDamageModifier / 100.0F;
+		float fNewCombatDamage = fPercent * 20.0F; // 20 is the original Civ4 combat damage
+		int iNewCombatDamage = int(fNewCombatDamage);
+		GC.setDefineINT("COMBAT_DAMAGE", iNewCombatDamage, false);
+	}
 }
 
 int CvGlobals::getDefineINT( const char * szName ) const
@@ -2692,10 +2702,10 @@ const char * CvGlobals::getDefineSTRING( const char * szName ) const
 	return szReturn;
 }
 
-void CvGlobals::setDefineINT( const char * szName, int iValue )
+void CvGlobals::setDefineINT( const char * szName, int iValue, bool refreshFromBugOptions)
 {
 	GC.getDefinesVarSystem()->SetValue( szName, iValue );
-	cacheGlobals();
+	cacheGlobals(refreshFromBugOptions);
 }
 
 void CvGlobals::setDefineFLOAT( const char * szName, float fValue )

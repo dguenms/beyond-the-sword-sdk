@@ -1820,7 +1820,7 @@ class CvMainInterface:
 		screen.hide( "PlotListMinus" )
 		screen.hide( "PlotListPlus" )
 
-		BugUtil.debug("updatePlotListButtons_Orig - column %i, offset %i", CyInterface().getPlotListColumn(), CyInterface().getPlotListOffset())
+		#BugUtil.debug("updatePlotListButtons_Orig - column %i, offset %i", CyInterface().getPlotListColumn(), CyInterface().getPlotListOffset())
 
 		if ( pPlot and CyInterface().getShowInterface() != InterfaceVisibility.INTERFACE_HIDE_ALL and CyEngine().isGlobeviewUp() == False):
 
@@ -1839,7 +1839,7 @@ class CvMainInterface:
 				iCount += CyInterface().getPlotListOffset()
 				iSkipped = 0
 
-			BugUtil.debug("updatePlotListButtons_Orig - iCount(%i), iSkipped(%i)", iCount, iSkipped)
+			#BugUtil.debug("updatePlotListButtons_Orig - iCount(%i), iSkipped(%i)", iCount, iSkipped)
 
 			CyInterface().cacheInterfacePlotUnits(pPlot)
 			for i in range(CyInterface().getNumCachedInterfacePlotUnits()):
