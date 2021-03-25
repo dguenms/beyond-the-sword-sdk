@@ -350,7 +350,23 @@ class BugEventManager(CvEventManager.CvEventManager):
 	def _logEvent(self, eventType, argsList):
 		if self.logging and eventType not in self.noLogEvents:
 			if argsList:
-				BugUtil.debug("BugEventManager - event %s: %r", eventType, argsList)
+#Custom Combat - Combat hit debug - start
+				if eventType == "combatLogHit":
+					genericArgs = argsList[0][0]
+					cdWinner = genericArgs[0]
+					cdLoser = genericArgs[1]
+					iIsAttacker = genericArgs[2]
+					iDamage = genericArgs[3]
+					iDamageModifier = genericArgs[4]
+
+					if iIsAttacker == 1:
+						cdWinner = genericArgs[1]
+						cdLoser = genericArgs[0]
+
+					BugUtil.debug("%s hit %s for %d damage (now %i HP), multiplier = %i", cdWinner.sUnitName, cdLoser.sUnitName, iDamage, cdLoser.iCurrHitPoints, iDamageModifier)
+#Custom Combat - Combat hit debug - start
+				else:
+					BugUtil.debug("BugEventManager - event %s: %r", eventType, argsList)
 			else:
 				BugUtil.debug("BugEventManager - event %s", eventType)
 

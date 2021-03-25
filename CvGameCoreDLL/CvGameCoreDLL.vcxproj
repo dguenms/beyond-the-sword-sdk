@@ -226,6 +226,8 @@
     <ClCompile Include="FDialogTemplate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CustomAssets\Python\BUG\CustomCombat.py" />
+    <None Include="CustomAssets\XML\Text\CustomCombat_Civ4GameText.xml" />
     <None Include="FVariableSystem.inl" />
     <None Include="interfaceDirtyBits.inl" />
   </ItemGroup>

@@ -678,13 +678,13 @@ public:
 	//
 
 	DllExport FVariableSystem* getDefinesVarSystem();
-	DllExport void cacheGlobals();
+	DllExport void cacheGlobals(bool refreshFromBugOptions = true);
 
 	// ***** EXPOSED TO PYTHON *****
 	DllExport int getDefineINT( const char * szName ) const;
 	DllExport float getDefineFLOAT( const char * szName ) const;
 	DllExport const char * getDefineSTRING( const char * szName ) const;
-	DllExport void setDefineINT( const char * szName, int iValue );
+	DllExport void setDefineINT( const char * szName, int iValue, bool refreshFromBugOptions = true );
 	DllExport void setDefineFLOAT( const char * szName, float fValue );
 	DllExport void setDefineSTRING( const char * szName, const char * szValue );
 

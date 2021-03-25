@@ -116,6 +116,8 @@ from configobj import ConfigObj
 import re
 import types
 
+gc = CyGlobalContext()
+
 # regular expressions used for DLL handling in tooltips
 
 RE_DLL_ALL_TAGS = re.compile(r"(\[DLL\].*\[/DLL\]|\[DLLERR\])", re.DOTALL)
@@ -671,8 +673,19 @@ class AbstractOption(object):
 			BugUtil.debug("AbstractOption - setting %s to its default %s", self.getID(), value)
 		else:
 			BugUtil.debug("AbstractOption - setting %s to %s", self.getID(), value)
+
 		if self._setValue(value, *args):
 			self.onChanged(*args)
+# Custom Combat - Combat Damage - Start
+			if self.getID() == "CustomCombat__DamageMultiplier":
+				iOriginalCombatDamage = gc.getDefineINT("COMBAT_DAMAGE")
+				fValue = float(value)
+				fPercent = fValue/100.0
+				fNewCombatDamage = fPercent * 20.0 # 20 is the original Civ4 combat damage
+				iNewCombatDamage = int(fNewCombatDamage) 
+				BugUtil.debug("Also setting COMBAT_DAMAGE from %i to %i (%s = %f / 100 = %f x 20 = %f)", iOriginalCombatDamage, iNewCombatDamage, value, fValue, fPercent, fNewCombatDamage)
+				gc.setDefineINT("COMBAT_DAMAGE", iNewCombatDamage)
+# Custom Combat - Combat Damage - Start
 	
 #	def _setValue(self, value, *args):
 #		return False

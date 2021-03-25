@@ -282,6 +282,7 @@ def log(level, message, args=()):
 				message = message % args
 			if level >= screenLogLevel:
 				logToScreen(message)
+				logToFile(LEVEL_PREFIXES[level] + message)
 			if level >= fileLogLevel:
 				logToFile(LEVEL_PREFIXES[level] + message)
 		except UnicodeError:
@@ -568,10 +569,10 @@ class Timer:
 	
 	def _log(self, runtime, extra):
 		"""Logs the passed in runtime value."""
-		if extra is None:
-			debug("Timer - %s took %d ms" % (self._item, 1000 * runtime))
-		else:
-			debug("Timer - %s [%s] took %d ms" % (self._item, str(extra), 1000 * runtime))
+		#if extra is None:
+			#debug("Timer - %s took %d ms" % (self._item, 1000 * runtime))
+		#else:
+			#debug("Timer - %s [%s] took %d ms" % (self._item, str(extra), 1000 * runtime))
 		return self
 
 

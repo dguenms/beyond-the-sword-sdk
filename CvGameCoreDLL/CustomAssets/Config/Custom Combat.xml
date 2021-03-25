@@ -16,7 +16,10 @@
 					type="boolean" default="True"/>
       <option id="MaxCombatRounds" key="MaxCombatRounds"
 					type="int" default="5" />
-		</section>
+      <option id="DamageMultiplier" key="DamageMultiplier"
+					type="int" default="100" />
+    </section>
 	</options>
-	
+  
+  <init module="CustomCombat" function="init"/>
 </mod>

@@ -1,4 +1,4 @@
-## CustomCombatOptionsTab
+## BugCustomCombatOptionsTab
 ##
 ## Author: Freaky
 
@@ -18,5 +18,4 @@ class CustomCombatOptionsTab(BugOptionsTab.BugOptionsTab):
 		self.addCheckbox(screen, column, "CustomCombat__Enabled")
 
 		columnL, columnR = self.addTwoColumnLayout(screen, column, "CustomCombat")
-		self.addTextEdit(screen, columnL, columnR, "CustomCombat__MaxCombatRounds")
-		self.addTextEdit(screen, columnL, columnR, "CustomCombat__DamageMultiplier")
+		self.addTextEdit(screen, columnL, columnR, "CustomCombat__MaxRounds")
