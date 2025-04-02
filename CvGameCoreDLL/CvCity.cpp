@@ -11248,6 +11248,11 @@ void CvCity::doPlotCulture(bool bUpdate, PlayerTypes ePlayer, int iCultureRate)
 						{
 							if (pLoopPlot->isPotentialCityWorkForArea(area()))
 							{
+								if (!pLoopPlot->isOwned())
+								{
+									CvEventReporter::getInstance().plotCovered(this, pLoopPlot);
+								}
+
 								pLoopPlot->changeCulture(ePlayer, (((eCultureLevel - iCultureRange) * iFreeCultureRate) + iCultureRate + 1), (bUpdate || !(pLoopPlot->isOwned())));
 							}
 						}

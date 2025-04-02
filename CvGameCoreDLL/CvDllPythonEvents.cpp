@@ -1156,3 +1156,21 @@ void CvDllPythonEvents::preSave()
 		postEvent(eventData);
 	}
 }
+
+void CvDllPythonEvents::reportPlotCovered(CvCity* pCity, CvPlot* pPlot)
+{
+	if (preEvent())
+	{
+		CyArgsList eventData;
+		eventData.add("plotCovered");						// add key to lookup python handler fxn
+
+		CyCity* pCyCity = new CyCity(pCity);
+		eventData.add(gDLL->getPythonIFace()->makePythonObject(pCyCity));
+		CyPlot* pCyPlot = new CyPlot(pPlot);
+		eventData.add(gDLL->getPythonIFace()->makePythonObject(pCyPlot));
+
+		postEvent(eventData);
+		delete pCyPlot;
+		delete pCyCity;
+	}
+}

@@ -415,6 +415,11 @@ void CvEventReporter::vassalState(TeamTypes eMaster, TeamTypes eVassal, bool bVa
 	m_kPythonEventMgr.reportVassalState(eMaster, eVassal, bVassal);
 }
 
+void CvEventReporter::plotCovered(CvCity* pCity, CvPlot* pPlot)
+{
+	m_kPythonEventMgr.reportPlotCovered(pCity, pPlot);
+}
+
 void CvEventReporter::preSave()
 {
 	m_kPythonEventMgr.preSave();

@@ -97,6 +97,8 @@ public:
 
 	void preSave();
 
+	void reportPlotCovered(CvCity* pCity, CvPlot* pPlot);
+
 private:
 	bool preEvent();
 	bool postEvent(CyArgsList& eventData);
