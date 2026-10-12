@@ -1806,7 +1806,7 @@ void CvGame::normalizeAddExtras()
 												{
 												pLoopPlot->setFeatureType(NO_FEATURE);
 
-													for (iK = 0; iK < GC.getNumBonusInfos(); iK++)
+													for (int iK = 0; iK < GC.getNumBonusInfos(); iK++)
 													{
 														if (GC.getBonusInfo((BonusTypes)iK).isNormalize())
 														{
@@ -1838,7 +1838,7 @@ void CvGame::normalizeAddExtras()
 				
 				shuffleArray(aiShuffle, NUM_CITY_PLOTS, getMapRand());
 
-				for (iJ = 0; iJ < NUM_CITY_PLOTS; iJ++)
+				for (int iJ = 0; iJ < NUM_CITY_PLOTS; iJ++)
 				{
 					if (GET_PLAYER((PlayerTypes)iI).AI_foundValue(pStartingPlot->getX_INLINE(), pStartingPlot->getY_INLINE(), -1, true) >= iTargetValue)
 					{

@@ -1,5 +1,6 @@
 #include "CvGameCoreDLL.h"
 #include "CyCity.h"
+#include "CyUnit.h"
 #include "CyPlot.h"
 #include "CyArea.h"
 #include "CvInfos.h"

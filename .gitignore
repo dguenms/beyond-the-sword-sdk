@@ -10,3 +10,32 @@ temp_files/
 
 *.dll
 *.opensdf
+
+# BridgedCvGameCore outputs; inherited tracked dependencies remain tracked.
+/AGENTS.md
+/.planning/
+/probes/
+/verification/
+/build/
+/build-*/
+/tmp/
+/screenshots/
+/fixtures/local/
+/tools/local/
+__pycache__/
+/CMakeUserPresets.json
+/.env
+/.env.local
+*.exe
+*.so
+*.dylib
+*.o
+*.obj
+*.pdb
+*.ilk
+*.CivBeyondSwordSave
+*.civbeyondswordsave
+*.CivBeyondSwordWBSave
+*.CivBeyondSwordReplay
+*.fpk
+*.FPK

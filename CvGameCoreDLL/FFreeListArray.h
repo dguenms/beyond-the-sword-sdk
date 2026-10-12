@@ -66,7 +66,7 @@ protected:
 template <class T>
 FFreeListArray<T>::FFreeListArray()
 {
-	m_iFreeListHead = FFreeList::FLA_FREE_LIST_INDEX;
+	m_iFreeListHead = FFreeList::FREE_LIST_INDEX;
 	m_iFreeListCount = 0;
 	m_iLastIndex = FFreeList::INVALID_INDEX;
 	m_iNumSlots = 0;
@@ -89,7 +89,7 @@ void FFreeListArray<T>::init(int iNumSlots)
 
 	uninit();
 
-	m_iFreeListHead = FLA_FREE_LIST_INDEX;
+	m_iFreeListHead = FFreeList::FREE_LIST_INDEX;
 	m_iFreeListCount = 0;
 	m_iLastIndex = FFreeList::INVALID_INDEX;
 	m_iNumSlots = iNumSlots;
@@ -190,7 +190,7 @@ void FFreeListArray<T>::insertAt(T data, int iIndex)
 
 	m_pArray[iIndex].data = data;
 
-	if (m_iFreeListHead != FLA_FREE_LIST_INDEX)
+	if (m_iFreeListHead != FFreeList::FREE_LIST_INDEX)
 	{
 		if (iIndex == m_iFreeListHead)
 		{
@@ -200,7 +200,7 @@ void FFreeListArray<T>::insertAt(T data, int iIndex)
 		else
 		{
 			iTempIndex = m_iFreeListHead;
-			while (iTempIndex != FLA_FREE_LIST_INDEX)
+			while (iTempIndex != FFreeList::FREE_LIST_INDEX)
 			{
 				assert(iTempIndex != FFreeList::INVALID_INDEX);
 				if (m_pArray[iTempIndex].iNextFreeIndex == iIndex)
@@ -345,7 +345,7 @@ void FFreeListArray<T>::removeAll()
 		return;
 	}
 
-	m_iFreeListHead = FLA_FREE_LIST_INDEX;
+	m_iFreeListHead = FFreeList::FREE_LIST_INDEX;
 	m_iFreeListCount = 0;
 	m_iLastIndex = FFreeList::INVALID_INDEX;
 

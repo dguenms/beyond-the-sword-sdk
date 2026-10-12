@@ -2081,7 +2081,7 @@ bool CvGameTextMgr::setCombatPlotHelp(CvWStringBuffer &szString, CvPlot* pPlot)
 void createTestFontString(CvWStringBuffer& szString)
 {
 	int iI;
-	szString.assign(L"!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[×]^_`abcdefghijklmnopqrstuvwxyz\n");
+	szString.assign(L"!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\u00D7]^_`abcdefghijklmnopqrstuvwxyz\n");
 	//szString.append(L"{}~\\ßÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖØÙÚÛÜİŞŸßàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿ¿¡«»°ŠŒšœ™©®€£¢”‘“…’");
 	for (iI=0;iI<NUM_YIELD_TYPES;++iI)
 		szString.append(CvWString::format(L"%c", GC.getYieldInfo((YieldTypes) iI).getChar()));
@@ -6287,7 +6287,7 @@ void CvGameTextMgr::setUnitHelp(CvWStringBuffer &szBuffer, UnitTypes eUnit, bool
 			}
 			else
 			{
-				szTempBuffer.Format(L"%s%c", NEWLINE, gDLL->getSymbolID(BULLET_CHAR), szTempBuffer);
+				szTempBuffer.Format(L"%s%c", NEWLINE, gDLL->getSymbolID(BULLET_CHAR));
 				szBuffer.append(szTempBuffer);
 			}
 			if (GC.getUnitInfo(eUnit).getBonusProductionModifier(iI) == 100)
@@ -6479,7 +6479,7 @@ void CvGameTextMgr::setBuildingHelp(CvWStringBuffer &szBuffer, BuildingTypes eBu
 
 		if (kBuilding.getGreatPeopleRateChange() != 0)
 		{
-			szTempBuffer.Format(L", %s%d%c", ((kBuilding.getGreatPeopleRateChange() > 0) ? "+" : ""), kBuilding.getGreatPeopleRateChange(), gDLL->getSymbolID(GREAT_PEOPLE_CHAR));
+			szTempBuffer.Format(L", %s%d%c", ((kBuilding.getGreatPeopleRateChange() > 0) ? L"+" : L""), kBuilding.getGreatPeopleRateChange(), gDLL->getSymbolID(GREAT_PEOPLE_CHAR));
 			szBuffer.append(szTempBuffer);
 
 			if (kBuilding.getGreatPeopleUnitClass() != NO_UNITCLASS)
@@ -7453,7 +7453,7 @@ void CvGameTextMgr::setBuildingHelp(CvWStringBuffer &szBuffer, BuildingTypes eBu
 				}
 				else
 				{
-					szTempBuffer.Format(L"\n%c", gDLL->getSymbolID(BULLET_CHAR), szTempBuffer);
+					szTempBuffer.Format(L"\n%c", gDLL->getSymbolID(BULLET_CHAR));
 					szBuffer.append(szTempBuffer);
 				}
 				if (kBuilding.getBonusProductionModifier(iI) == 100)
@@ -8096,7 +8096,7 @@ void CvGameTextMgr::setProjectHelp(CvWStringBuffer &szBuffer, ProjectTypes eProj
 			}
 			else
 			{
-				szTempBuffer.Format(L"%s%c", NEWLINE, gDLL->getSymbolID(BULLET_CHAR), szTempBuffer);
+				szTempBuffer.Format(L"%s%c", NEWLINE, gDLL->getSymbolID(BULLET_CHAR));
 				szBuffer.append(szTempBuffer);
 			}
 			if (kProject.getBonusProductionModifier(iI) == 100)
@@ -9098,7 +9098,7 @@ void CvGameTextMgr::setReligionHelpCity(CvWStringBuffer &szBuffer, ReligionTypes
 					szBuffer.append(L", ");
 				}
 
-				szTempBuffer.Format(L"%s%d%c", iCommerce > 0 ? "+" : "", iCommerce, GC.getCommerceInfo((CommerceTypes)i).getChar());
+				szTempBuffer.Format(L"%s%d%c", iCommerce > 0 ? L"+" : L"", iCommerce, GC.getCommerceInfo((CommerceTypes)i).getChar());
 				szBuffer.append(szTempBuffer);
 				bHandled = true;
 			}
@@ -9420,7 +9420,7 @@ void CvGameTextMgr::setCorporationHelpCity(CvWStringBuffer &szBuffer, Corporatio
 			}
 
 			CvWString szTempBuffer;
-			szTempBuffer.Format(L"%s%d%c", iYield > 0 ? "+" : "", (iYield + 99) / 100, GC.getYieldInfo((YieldTypes)i).getChar());
+			szTempBuffer.Format(L"%s%d%c", iYield > 0 ? L"+" : L"", (iYield + 99) / 100, GC.getYieldInfo((YieldTypes)i).getChar());
 			szBuffer.append(szTempBuffer);
 			bHandled = true;
 		}
@@ -9444,7 +9444,7 @@ void CvGameTextMgr::setCorporationHelpCity(CvWStringBuffer &szBuffer, Corporatio
 			}
 
 			CvWString szTempBuffer;
-			szTempBuffer.Format(L"%s%d%c", iCommerce > 0 ? "+" : "", (iCommerce + 99) / 100, GC.getCommerceInfo((CommerceTypes)i).getChar());
+			szTempBuffer.Format(L"%s%d%c", iCommerce > 0 ? L"+" : L"", (iCommerce + 99) / 100, GC.getCommerceInfo((CommerceTypes)i).getChar());
 			szBuffer.append(szTempBuffer);
 			bHandled = true;
 		}
@@ -12203,7 +12203,7 @@ void CvGameTextMgr::buildCityBillboardIconString( CvWStringBuffer& szBuffer, CvC
 
 			if (iDefenseModifier != 0)
 			{
-				szBuffer.append(CvWString::format(L" %c:%s%d%%", gDLL->getSymbolID(DEFENSE_CHAR), ((iDefenseModifier > 0) ? "+" : ""), iDefenseModifier));
+				szBuffer.append(CvWString::format(L" %c:%s%d%%", gDLL->getSymbolID(DEFENSE_CHAR), ((iDefenseModifier > 0) ? L"+" : L""), iDefenseModifier));
 			}
 		}
 	}
@@ -14128,7 +14128,7 @@ void CvGameTextMgr::assignFontIds(int iFirstSymbolCode, int iPadAmount)
 	} while (iCurSymbolID % iPadAmount != 0);
 
 	// set commerce symbols
-	for (i=0;i<GC.getNUM_COMMERCE_TYPES();i++)
+	for (int i=0;i<GC.getNUM_COMMERCE_TYPES();i++)
 	{
 		GC.getCommerceInfo((CommerceTypes) i).setChar(iCurSymbolID);  
 		++iCurSymbolID;
@@ -14154,7 +14154,7 @@ void CvGameTextMgr::assignFontIds(int iFirstSymbolCode, int iPadAmount)
 		GC.getReligionInfo((ReligionTypes) i).setHolyCityChar(iCurSymbolID);
 		++iCurSymbolID;
 	}
-	for (i = 0; i < GC.getNumCorporationInfos(); i++)
+	for (int i = 0; i < GC.getNumCorporationInfos(); i++)
 	{
 		GC.getCorporationInfo((CorporationTypes) i).setChar(iCurSymbolID);
 		++iCurSymbolID;
